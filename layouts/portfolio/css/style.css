@@ -1,5 +1,6 @@
 body {
 	background-color: black;
+	color: white;
 }
 footer {
 	text-align: center;
@@ -97,13 +98,12 @@ footer {
 .dropdown:hover .dropdown-content {
   	display: block;
 }
-.img-zoom {
-	transition: 0.5s;
-}
-.img-zoom:hover {
-	transform: scale(1.1);
-	transition: 0.5s;
-}
 .text-center {
 	text-align: center;
+}
+.mb-4 {
+	margin-bottom: 1.5rem !important;
+}
+.mt-4 {
+	margin-top: 1.5rem !important;
 }

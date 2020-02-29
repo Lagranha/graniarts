@@ -9,7 +9,7 @@
 			$main_content .= '
 			<div class="container">
 				<div class="row">';
-					if(isset($isTryingToLogin)){
+					if (isset($isTryingToLogin)) {
 						$main_content .= '
 						<div class="col-sm-12">
 							<div class="alert alert-danger fade in">

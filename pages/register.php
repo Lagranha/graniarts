@@ -61,8 +61,8 @@
 							$main_content .= '
 				      		</div>
 						</div>
-						<div class="col-sm-12">
-							<form action="?page=register" method="post">
+						<form action="?page=register" method="post">
+							<div class="col-sm-12">
 								<div class="panel-group">
 									<div class="panel">
 										<div class="panel-heading">
@@ -86,12 +86,16 @@
 										</div>
 									</div>
 								</div>
+							</div>
+							<div class="col-sm-4"></div>
+							<div class="col-sm-4">
 								<div class="btn-box">
 									<input type="hidden" name="step" value="docreate">
 									<input class="btn btn-success btn-block" type="submit" value="Finalizar">
 								</div>
-							</form>
-						</div>
+							</div>
+							<div class="col-sm-4"></div>
+						</form>
 					</div>
 				</div>';
 			} else {
@@ -119,10 +123,10 @@
 			}
 		} else {
 			$main_content .= '
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-12">
-						<form action="?page=register" method="post">
+			<form action="?page=register" method="post">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
 							<div class="panel-group">
 								<div class="panel">
 									<div class="panel-heading">
@@ -146,13 +150,17 @@
 									</div>
 								</div>
 							</div>
+						</div>
+						<div class="col-sm-4"></div>
+						<div class="col-sm-4">
 							<div class="btn-box">
 								<input type="hidden" name="step" value="docreate">
 								<input class="btn btn-success btn-block" type="submit" value="Finalizar">
 							</div>
-						</form>
+						</div>
+						<div class="col-sm-4"></div>
 					</div>
 				</div>
-			</div>';
+			</form>';
 		}
 	} else header("Location: ./?page=account");
