@@ -1,5 +1,5 @@
 -- Server
-serverName = "Artilheiro"
+serverName = "Graniart's"
 
 -- MySQL
 mysqlHost = "127.0.0.1"

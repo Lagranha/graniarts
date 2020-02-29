@@ -7,48 +7,48 @@
 			$email = isset($_POST['email']) ? $_POST['email'] : '';
 			$password1 = isset($_POST['password1']) ? $_POST['password1'] : '';
 			$password2 = isset($_POST['password2']) ? $_POST['password2'] : '';
-			$error = array();
+			$errors = array();
 
 			/* Email errors */
 			if ($email == '')
-				$error['email'] = 'Digite o endereço de e-mail.';
+				$errors['email'] = 'Digite o endereço de e-mail.';
 			elseif (strlen($email) > 49)
-				$error['email'] = 'O endereço de e-mail é muito longo. Use um endereço de e-mail com menos de 50 caracteres.';
+				$errors['email'] = 'O endereço de e-mail é muito longo. Use um endereço de e-mail com menos de 50 caracteres.';
 			elseif (!filter_var($email, FILTER_VALIDATE_EMAIL))
-				$error['email'] = 'Este endereço de e-mail possui um fomarto inválido.';
+				$errors['email'] = 'Este endereço de e-mail possui um fomarto inválido.';
 			else {
 				$accMailCheck = new Account($email, Account::LOADTYPE_MAIL);
 				if($accMailCheck->isLoaded())
-					$error['email'] = 'Este endereço de e-mail já está em uso.';
+					$errors['email'] = 'Este endereço de e-mail já está em uso.';
 			}
 		
 			/* Password errors */
 			if (empty($password2))
-				$error['pass'] = 'Digite a senha novamente.';
+				$errors['pass'] = 'Digite a senha novamente.';
 			elseif ($password1 != $password2)
-				$error['pass'] = 'As duas senhas não são iguais.';
+				$errors['pass'] = 'As duas senhas não são iguais.';
 			else {
 				if (strlen($password1) < 8 || strlen($password1) > 30)
-					$error['pass']  = 'A senha deve possuir pelo menos 8 caracteres e no máximo 30.';
+					$errors['pass']  = 'A senha deve possuir pelo menos 8 caracteres e no máximo 30.';
 				if (!ctype_alnum($password1))
-					$error['pass']  = 'A senha possui letras inválidas.';
+					$errors['pass']  = 'A senha possui letras inválidas.';
 				elseif (!preg_match('/[a-zA-Z]/', $password1))
-					$error['pass']  = 'A senha deve possuir pelo menos uma letra minúscula ou maiúscula.';
+					$errors['pass']  = 'A senha deve possuir pelo menos uma letra minúscula ou maiúscula.';
 				elseif (!preg_match('/[0-9]/', $password1))
-					$error['pass']  = 'A senha deve possuir pelo menos um número de 0-9.';
+					$errors['pass']  = 'A senha deve possuir pelo menos um número de 0-9.';
 		
 					
-				if (count($err) != 0) {
-					$error['pass'] = '';
+				if (count($errors) != 0) {
+					$errors['pass'] = '';
 					for ($i = 0; $i < count($err); $i++)
-						$error['pass'] .= ($i == 0 ? '' : '<br/>').$err[$i];
+						$errors['pass'] .= ($i == 0 ? '' : '<br/>').$err[$i];
 				}
 			}
 
 			if (!isset($_POST['agreeagreements']) || empty($_POST['agreeagreements']))
-				$error['rules'] = 'Você não aceitou as regras do '.$config['server']['serverName'].'.';
+				$errors['rules'] = 'Você não aceitou as regras do '.$config['server']['serverName'].'.';
 
-			if (count($error) != 0){
+			if (count($errors) != 0){
 				$main_content .= '
 				<div class="container">
 					<div class="row">
@@ -56,8 +56,8 @@
 							<div class="alert alert-danger fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
 								<label><span class="glyphicon glyphicon-exclamation-sign"></span> Os seguintes erros ocorreram:</label>';
-								foreach($error as $errors)
-									$main_content .= '<div>'.$errors.'</div>';
+								foreach($errors as $error)
+									$main_content .= '<div>'.$error.'</div>';
 							$main_content .= '
 				      		</div>
 						</div>
@@ -69,30 +69,18 @@
 											<div>Dados da conta</div>
 										</div>
 										<div class="panel-body">
-											<div class="form-group">
-												<label for="email">Endereço de e-mail</label>
-												<input type="text" class="form-control" id="email" name="email" value="'.(isset($_POST['email']) ? htmlspecialchars(substr($_POST['email'], 0, 50)) : '').'">
-											</div>
-											<div class="form-group">
-												<label for="password1">Senha</label>
-												<input type="password" class="form-control" id="password1" name="password1">
-											</div>
-											<div class="form-group">
-												<label for="password2">Confirmação da senha</label>
-												<input type="password" class="form-control" id="password2" name="password2">
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="panel-group">
-									<div class="panel">
-										<div class="panel-heading">
-											<div>Regras</div>
-										</div>
-										<div class="panel-body">
-											<div class="col-sm-12">
-												<div class="form-box">
-													<input type="checkbox" name="agreeagreements" value="true" '.($_POST['agreeagreements'] == 'true' ? 'checked="checked"' : '').'/> Eu li, concordo e aceito as <a href="?page=rules" target="_blank" >regras</a> do '.$config['server']['serverName'].'.</td>
+											<div class="form-row text-center">
+												<div class="form-group col-md-4">
+													<label for="email"><i class="fas fa-envelope"></i> Endereço de e-mail</label>
+													<input type="text" class="form-control" id="email" name="email" value="'.(isset($_POST['email']) ? htmlspecialchars(substr($_POST['email'], 0, 50)) : '').'">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="password1"><i class="fas fa-key"></i> Senha:</label>
+													<input type="password" class="form-control" id="password1" name="password1">
+												</div>
+												<div class="form-group col-md-4">
+													<label for="password2"><i class="fas fa-lock"></i> Confirmação da senha:</label>
+													<input type="password" class="form-control" id="password2" name="password2">
 												</div>
 											</div>
 										</div>
@@ -141,30 +129,18 @@
 										<div>Dados da conta</div>
 									</div>
 									<div class="panel-body">
-										<div class="form-group">
-											<label for="email">Endereço de e-mail</label>
-											<input type="text" class="form-control" id="email" name="email" value="'.(isset($_POST['email']) ? htmlspecialchars(substr($_POST['email'], 0, 50)) : '').'">
-										</div>
-										<div class="form-group">
-											<label for="password1">Senha</label>
-											<input type="password" class="form-control" id="password1" name="password1">
-										</div>
-										<div class="form-group">
-											<label for="password2">Confirmação da senha</label>
-											<input type="password" class="form-control" id="password2" name="password2">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="panel-group">
-								<div class="panel">
-									<div class="panel-heading">
-										<div>Regras</div>
-									</div>
-									<div class="panel-body">
-										<div class="col-sm-12">
-											<div class="form-box">
-												<input type="checkbox" name="agreeagreements" value="true" '.($_POST['agreeagreements'] == 'true' ? 'checked="checked"' : '').'/> Eu li, concordo e aceito as <a href="?page=rules" target="_blank" >regras</a> do '.$config['server']['serverName'].'.</td>
+										<div class="form-row text-center">
+											<div class="form-group col-md-4">
+												<label for="email"><i class="fas fa-envelope"></i> Endereço de e-mail</label>
+												<input type="text" class="form-control" id="email" name="email" value="'.(isset($_POST['email']) ? htmlspecialchars(substr($_POST['email'], 0, 50)) : '').'">
+											</div>
+											<div class="form-group col-md-4">
+												<label for="password1"><i class="fas fa-key"></i> Senha:</label>
+												<input type="password" class="form-control" id="password1" name="password1">
+											</div>
+											<div class="form-group col-md-4">
+												<label for="password2"><i class="fas fa-lock"></i> Confirmação da senha:</label>
+												<input type="password" class="form-control" id="password2" name="password2">
 											</div>
 										</div>
 									</div>

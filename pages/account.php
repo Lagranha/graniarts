@@ -41,13 +41,15 @@
 							     		<div>Acesse sua conta</div>
 							 		</div>
 									<div class="panel-body">
-										<div class="form-group">
-										    <label for="account_email">Endereço de e-mail:</label>
-										    <input type="account_email" class="form-control" id="account_email" name="account_email">
-										</div>
-										<div class="form-group">
-										    <label for="password_login">Senha</label>
-										    <input type="password_login" class="form-control" id="password_login" name="password_login">
+										<div class="form-row text-center">
+											<div class="form-group col-md-6">
+												<label for="account_email"><i class="fas fa-envelope"></i> Endereço de e-mail:</label>
+												<input type="account_email" class="form-control" id="account_email" name="account_email">
+											</div>
+											<div class="form-group col-md-6">
+										    	<label for="password_login"><i class="fas fa-key"></i> Senha:</label>
+										    	<input type="password_login" class="form-control" id="password_login" name="password_login">
+											</div>
 										</div>
 								 	</div>
 								</div>
